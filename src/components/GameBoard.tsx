@@ -1,5 +1,5 @@
 import { useMemo } from "preact/hooks";
-import { Game } from "../lib/game";
+import { Game, isGameWon } from "../lib/game";
 
 interface GameBoardProps {
     game: Game;
@@ -29,9 +29,18 @@ export function GameBoard(props: GameBoardProps) {
         [game.boardSize]
     );
 
+    const gameWon = isGameWon(game);
+
     return (
         <div class="text-center">
-            <div class="h3 mb-3">Moves: {game.actionCount}</div>
+            <div class="h3 mb-3">
+                Moves: {game.actionCount}
+                {gameWon && (
+                    <span class="d-inline-block ms-3 text-success">
+                        You win!
+                    </span>
+                )}
+            </div>
             {boardCoords.map((row, y) => (
                 <div class="board-row" key={y}>
                     {row.map((_, x) => (
@@ -41,6 +50,7 @@ export function GameBoard(props: GameBoardProps) {
                                 game.board[x]![y]!
                             )}`}
                             onClick={() => toggleCell(x, y)}
+                            disabled={gameWon}
                         />
                     ))}
                 </div>
