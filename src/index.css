@@ -1,0 +1,38 @@
+.board-row {
+    margin-bottom: 1em;
+}
+
+.board-cell {
+    display: inline-block;
+    width: 4em;
+    height: 4em;
+
+    background: #333;
+    border: 1px solid #666;
+
+    &:hover {
+        background: #444;
+    }
+
+    & + & {
+        margin-left: 1em;
+    }
+
+    &.s1 {
+        background: #ccc;
+        border: 1px solid #fff;
+
+        &:hover {
+            background: #ddd;
+        }
+    }
+
+    &.s2 {
+        background: #c63;
+        border: 1px solid #f90;
+
+        &:hover {
+            background: #d74;
+        }
+    }
+}

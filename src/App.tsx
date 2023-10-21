@@ -1,14 +1,23 @@
+import { useState } from "preact/hooks";
+import { GameBoard } from "./components/GameBoard";
+import { createTogglesClassic, newGame, toggleCell } from "./lib/game";
+
 /** Toggles bootstrap theme between light and dark */
 function toggleDarkMode() {
     const html = document.querySelector("html");
     if (html !== null) {
-        html.dataset["bsTheme"] = html.dataset["bsTheme"] === "dark"
-            ? "light"
-            : "dark";
+        html.dataset["bsTheme"] =
+            html.dataset["bsTheme"] === "dark" ? "light" : "dark";
     }
 }
 
+const initialGame = newGame(5, createTogglesClassic(5), 2, 100);
+
 export function App() {
+    const [game, setGame] = useState(() =>
+        newGame(5, createTogglesClassic(5), 2, 100)
+    );
+
     return (
         <div class="container mx-auto py-5">
             <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
@@ -30,6 +39,16 @@ export function App() {
                     </a>
                 </div>
             </div>
+            <GameBoard
+                game={game}
+                toggleCell={(x, y) => {
+                    setGame((game) => ({
+                        ...game,
+                        board: toggleCell(game, x, y),
+                        actionCount: game.actionCount + 1,
+                    }));
+                }}
+            />
             <div class="mt-5 text-end">
                 <a href="https://github.com/lixquid/app-lightsout-game">
                     <i class="bi bi-box-arrow-up-right me-2" />
