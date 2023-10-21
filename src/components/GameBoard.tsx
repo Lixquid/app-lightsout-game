@@ -31,6 +31,7 @@ export function GameBoard(props: GameBoardProps) {
 
     return (
         <div class="text-center">
+            <div class="h3 mb-3">Moves: {game.actionCount}</div>
             {boardCoords.map((row, y) => (
                 <div class="board-row" key={y}>
                     {row.map((_, x) => (
