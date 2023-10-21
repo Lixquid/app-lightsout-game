@@ -67,12 +67,15 @@ export function newGame(
     };
 
     const rng = rngSeed === null ? Math.random : mulberry32(rngSeed);
-    // Randomise the board
-    for (let i = 0; i < initSteps; i++) {
-        const x = Math.floor(rng() * size);
-        const y = Math.floor(rng() * size);
-        game.board = toggleCell(game, x, y);
-    }
+    do {
+        // Randomise the board
+        for (let i = 0; i < initSteps; i++) {
+            const x = Math.floor(rng() * size);
+            const y = Math.floor(rng() * size);
+            game.board = toggleCell(game, x, y);
+        }
+        // Check that we haven't generated a solved board
+    } while (isGameWon(game));
 
     return game;
 }

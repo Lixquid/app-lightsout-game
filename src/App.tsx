@@ -19,7 +19,8 @@ export function App() {
             5,
             gameTypes["classic"]!.toggles(5),
             gameTypes["classic"]!.cellMax,
-            100
+            100,
+            null
         )
     );
 
