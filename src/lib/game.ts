@@ -130,3 +130,37 @@ export function createTogglesClassic(size: number): Game["toggles"] {
 
     return toggles;
 }
+
+/**
+ * Creates the toggle pattern for a cross that also wraps around the edges.
+ * ```
+ *   ██
+ * ██████
+ *   ██
+ * ```
+ * @param size The number of columns and rows in the game board.
+ * @returns The toggle pattern.
+ */
+export function createTogglesWrap(size: number): Game["toggles"] {
+    const toggles: Game["toggles"] = new Array(size)
+        .fill(0)
+        .map(() => new Array(size).fill(0).map(() => []));
+
+    // For each cell, toggle the cell and the adjacent cells
+    for (let x = 0; x < size; x++) {
+        for (let y = 0; y < size; y++) {
+            // Centre
+            toggles[x]![y]!.push([x, y, 1]);
+            // Up
+            toggles[x]![y]!.push([x, (y - 1 + size) % size, 1]);
+            // Down
+            toggles[x]![y]!.push([x, (y + 1) % size, 1]);
+            // Left
+            toggles[x]![y]!.push([(x - 1 + size) % size, y, 1]);
+            // Right
+            toggles[x]![y]!.push([(x + 1) % size, y, 1]);
+        }
+    }
+
+    return toggles;
+}
