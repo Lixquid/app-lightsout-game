@@ -9,6 +9,7 @@ interface NewGameCardProps {
 export function NewGameCard(props: NewGameCardProps) {
     const [size, setSize] = useState(5);
     const [type, setType] = useState<keyof typeof gameTypes>("classic");
+    const [rngSeed, setRngSeed] = useState<number | null>(null);
 
     return (
         <div class="card mt-5">
@@ -17,26 +18,7 @@ export function NewGameCard(props: NewGameCardProps) {
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="newGame-size" class="form-label">
-                            Board size
-                        </label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="newGame-size"
-                            min="3"
-                            max="10"
-                            value={size}
-                            onChange={(e) =>
-                                setSize(Number(e.currentTarget.value))
-                            }
-                        />
-                        <div class="form-text">
-                            The width and height of the board.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-xl-4 col-md-6 mb-3">
                         <label for="newGame-type" class="form-label">
                             Game type
                         </label>
@@ -56,6 +38,66 @@ export function NewGameCard(props: NewGameCardProps) {
                             {gameTypes[type]!.description}
                         </div>
                     </div>
+                    <div class="col-xl-4 col-md-6 mb-3">
+                        <label for="newGame-size" class="form-label">
+                            Board size
+                        </label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="newGame-size"
+                            min="3"
+                            max="10"
+                            value={size}
+                            onChange={(e) =>
+                                setSize(Number(e.currentTarget.value))
+                            }
+                        />
+                        <div class="form-text">
+                            The width and height of the board.
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 mb-3">
+                        <label
+                            for="newGame-seed"
+                            class="form-label form-switch"
+                        >
+                            <input
+                                class="form-check-input me-2"
+                                type="checkbox"
+                                role="switch"
+                                checked={rngSeed !== null}
+                                onChange={(e) => {
+                                    if (e.currentTarget.checked) {
+                                        setRngSeed(0);
+                                    } else {
+                                        setRngSeed(null);
+                                    }
+                                }}
+                            />
+                            Set Random Seed
+                        </label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="newGame-seed"
+                            value={rngSeed ?? ""}
+                            disabled={rngSeed === null}
+                            step="1"
+                            min="0"
+                            max="4294967296"
+                            onChange={(e) =>
+                                setRngSeed(
+                                    e.currentTarget.value
+                                        ? Number(e.currentTarget.value)
+                                        : null
+                                )
+                            }
+                        />
+                        <div class="form-text">
+                            Set a random seed to generate a specific board.
+                        </div>
+                    </div>
                 </div>
                 <div class="float-end">
                     <button
@@ -66,7 +108,8 @@ export function NewGameCard(props: NewGameCardProps) {
                                     size,
                                     gameTypes[type]!.toggles(size),
                                     gameTypes[type]!.cellMax,
-                                    100
+                                    100,
+                                    rngSeed
                                 )
                             );
                         }}

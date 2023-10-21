@@ -1,3 +1,5 @@
+import { mulberry32 } from "./util";
+
 type Array2D<T> = T[][];
 
 export interface Game {
@@ -40,13 +42,15 @@ export function toggleCell(game: Game, x: number, y: number): Game["board"] {
  * @param toggles The cells each cell will toggle.
  * @param max The maximum value of each cell.
  * @param initSteps The number of random steps to perform on the board to initialise it.
+ * @param rngSeed The seed to use for the random number generator. If null, a random seed will be used.
  * @returns The new game object.
  */
 export function newGame(
     size: number,
     toggles: Game["toggles"],
     max: number,
-    initSteps: number
+    initSteps: number,
+    rngSeed: number | null
 ): Game {
     // Create a new blank board
     const board: Game["board"] = new Array(size)
@@ -62,10 +66,11 @@ export function newGame(
         actionCount: 0,
     };
 
+    const rng = rngSeed === null ? Math.random : mulberry32(rngSeed);
     // Randomise the board
     for (let i = 0; i < initSteps; i++) {
-        const x = Math.floor(Math.random() * size);
-        const y = Math.floor(Math.random() * size);
+        const x = Math.floor(rng() * size);
+        const y = Math.floor(rng() * size);
         game.board = toggleCell(game, x, y);
     }
 
