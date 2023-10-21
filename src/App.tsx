@@ -1,5 +1,6 @@
 import { useState } from "preact/hooks";
 import { GameBoard } from "./components/GameBoard";
+import { NewGameCard } from "./components/NewGameCard";
 import { createTogglesClassic, newGame, toggleCell } from "./lib/game";
 
 /** Toggles bootstrap theme between light and dark */
@@ -10,8 +11,6 @@ function toggleDarkMode() {
             html.dataset["bsTheme"] === "dark" ? "light" : "dark";
     }
 }
-
-const initialGame = newGame(5, createTogglesClassic(5), 2, 100);
 
 export function App() {
     const [game, setGame] = useState(() =>
@@ -49,6 +48,7 @@ export function App() {
                     }));
                 }}
             />
+            <NewGameCard setGame={setGame} />
             <div class="mt-5 text-end">
                 <a href="https://github.com/lixquid/app-lightsout-game">
                     <i class="bi bi-box-arrow-up-right me-2" />
