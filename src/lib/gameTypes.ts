@@ -75,4 +75,41 @@ export const gameTypes: Record<
         },
         cellMax: 2,
     },
+    threeState: {
+        name: "Three State Lights Out",
+        description:
+            "Also known as Lights Out 2000. Lights can be off, on, or red; lights cycle in the order off -> on -> red -> off. Lights are toggled in a cross pattern.",
+        toggles(size) {
+            const toggles: Game["toggles"] = new Array(size)
+                .fill(0)
+                .map(() => new Array(size).fill(0).map(() => []));
+
+            // For each cell, toggle the cell and the adjacent cells
+            for (let x = 0; x < size; x++) {
+                for (let y = 0; y < size; y++) {
+                    // Centre
+                    toggles[x]![y]!.push([x, y, 1]);
+                    // Up
+                    if (y > 0) {
+                        toggles[x]![y]!.push([x, y - 1, 1]);
+                    }
+                    // Down
+                    if (y < size - 1) {
+                        toggles[x]![y]!.push([x, y + 1, 1]);
+                    }
+                    // Left
+                    if (x > 0) {
+                        toggles[x]![y]!.push([x - 1, y, 1]);
+                    }
+                    // Right
+                    if (x < size - 1) {
+                        toggles[x]![y]!.push([x + 1, y, 1]);
+                    }
+                }
+            }
+
+            return toggles;
+        },
+        cellMax: 3,
+    },
 };
