@@ -12,7 +12,7 @@ export function App() {
     return (
         <div class="container mx-auto py-5">
             <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap">
-                <h1>TODO_NAME_</h1>
+                <h1>Lights Out</h1>
                 <div>
                     <button
                         class="btn btn-outline-secondary me-2"
@@ -31,7 +31,7 @@ export function App() {
                 </div>
             </div>
             <div class="mt-5 text-end">
-                <a href="https://github.com/lixquid/app-TODO_SLUG_">
+                <a href="https://github.com/lixquid/app-lightsout-game">
                     <i class="bi bi-box-arrow-up-right me-2" />
                     Source code
                 </a>

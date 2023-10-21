@@ -1,6 +1,6 @@
 {
-    "name": "TODO_SLUG_",
-    "description": "TODO_DESCRIPTION_",
+    "name": "lightsout-game",
+    "description": "An online implementation of the Lights Out game.",
     "version": "0.1.0",
     "author": {
         "name": "Lixquid",

@@ -1,12 +1,14 @@
-<h1><a href="https://TODO_SLUG_.lixquid.com">TODO_NAME_</a></h1>
+<h1><a href="https://lightsout-game.lixquid.com">Lights Out</a></h1>
 
-TODO_DESCRIPTION_
+An online implementation of the Lights Out game.
 
-https://TODO_SLUG_.lixquid.com
+https://lightsout-game.lixquid.com
 
-## How to Use
+## How to Play
 
-TODO_!App usage instructions_
+- Click on a cell to toggle its state, as well as the state of its neighbors.
+  - Depending on the game mode, what counts as a neighbor may vary.
+- The goal is to turn off all the lights.
 
 ## Development
 

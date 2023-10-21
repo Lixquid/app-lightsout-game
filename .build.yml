@@ -6,9 +6,9 @@ packages:
     - yarn
     - hut
 environment:
-    site: TODO_SLUG_.lixquid.com
+    site: lightsout-game.lixquid.com
 sources:
-    - https://github.com/lixquid/app-TODO_SLUG_
+    - https://github.com/lixquid/app-lightsout-game
 tasks:
     - build: |
           cd *
