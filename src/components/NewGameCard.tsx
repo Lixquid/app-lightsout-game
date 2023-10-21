@@ -1,39 +1,10 @@
 import { useState } from "preact/hooks";
-import {
-    Game,
-    createTogglesClassic,
-    createTogglesWrap,
-    newGame,
-} from "../lib/game";
+import { Game, newGame } from "../lib/game";
+import { gameTypes } from "../lib/gameTypes";
 
 interface NewGameCardProps {
     setGame: (game: Game) => void;
 }
-
-const gameTypes: Record<
-    string,
-    {
-        name: string;
-        description: string;
-        createToggles: (size: number) => Game["toggles"];
-        maxValue: number;
-    }
-> = {
-    classic: {
-        name: "Classic Lights Out",
-        description:
-            "The original Lights Out game. Lights are either on or off, and are toggled in a cross pattern.",
-        createToggles: createTogglesClassic,
-        maxValue: 2,
-    },
-    wraparound: {
-        name: "Wraparound Lights Out",
-        description:
-            'Also known as "Mini Lights Out". Lights are either on or off, and are toggled in a cross pattern. The board wraps around, so toggling a light on the far left will also toggle the light on the far right.',
-        createToggles: createTogglesWrap,
-        maxValue: 2,
-    },
-};
 
 export function NewGameCard(props: NewGameCardProps) {
     const [size, setSize] = useState(5);
@@ -93,8 +64,8 @@ export function NewGameCard(props: NewGameCardProps) {
                             props.setGame(
                                 newGame(
                                     size,
-                                    gameTypes[type]!.createToggles(size),
-                                    gameTypes[type]!.maxValue,
+                                    gameTypes[type]!.toggles(size),
+                                    gameTypes[type]!.cellMax,
                                     100
                                 )
                             );

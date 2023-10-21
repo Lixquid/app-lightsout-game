@@ -1,7 +1,8 @@
 import { useState } from "preact/hooks";
 import { GameBoard } from "./components/GameBoard";
 import { NewGameCard } from "./components/NewGameCard";
-import { createTogglesClassic, newGame, toggleCell } from "./lib/game";
+import { newGame, toggleCell } from "./lib/game";
+import { gameTypes } from "./lib/gameTypes";
 
 /** Toggles bootstrap theme between light and dark */
 function toggleDarkMode() {
@@ -14,7 +15,12 @@ function toggleDarkMode() {
 
 export function App() {
     const [game, setGame] = useState(() =>
-        newGame(5, createTogglesClassic(5), 2, 100)
+        newGame(
+            5,
+            gameTypes["classic"]!.toggles(5),
+            gameTypes["classic"]!.cellMax,
+            100
+        )
     );
 
     return (
