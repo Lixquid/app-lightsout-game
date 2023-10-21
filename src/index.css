@@ -1,5 +1,6 @@
 .board-row {
     margin-bottom: 1em;
+    white-space: nowrap;
 }
 
 .board-cell {
