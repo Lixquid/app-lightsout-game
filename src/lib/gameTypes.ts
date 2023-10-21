@@ -112,4 +112,41 @@ export const gameTypes: Record<
         },
         cellMax: 3,
     },
+    cross: {
+        name: "Cross Lights Out",
+        description:
+            "Seen in Lights Out Deluxe. Lights are either on or off, and are toggled in a cross pattern.",
+        toggles(size) {
+            const toggles: Game["toggles"] = new Array(size)
+                .fill(0)
+                .map(() => new Array(size).fill(0).map(() => []));
+
+            // For each cell, toggle the cell and the adjacent cells
+            for (let x = 0; x < size; x++) {
+                for (let y = 0; y < size; y++) {
+                    // Centre
+                    toggles[x]![y]!.push([x, y, 1]);
+                    // Top-Left
+                    if (x > 0 && y > 0) {
+                        toggles[x]![y]!.push([x - 1, y - 1, 1]);
+                    }
+                    // Top-Right
+                    if (x < size - 1 && y > 0) {
+                        toggles[x]![y]!.push([x + 1, y - 1, 1]);
+                    }
+                    // Bottom-Left
+                    if (x > 0 && y < size - 1) {
+                        toggles[x]![y]!.push([x - 1, y + 1, 1]);
+                    }
+                    // Bottom-Right
+                    if (x < size - 1 && y < size - 1) {
+                        toggles[x]![y]!.push([x + 1, y + 1, 1]);
+                    }
+                }
+            }
+
+            return toggles;
+        },
+        cellMax: 2,
+    },
 };
